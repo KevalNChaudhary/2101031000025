@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validation By Javascript</title>
+
+    <style>
+        small {
+            color: red;
+        }
+    </style>
+    <script>
+        var fullNameRegEx = /^([a-zA-Z ]{2,40})+$/;
+        var conNoRegEx = /^([0-9]{10})$/;
+        var emailIdRegEx = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,8}\b$/i;
+
+        document.addEventListener('DOMContentLoaded', function () {
+
+            var nameInput = document.getElementById('name');
+            var nameValidation = document.getElementById('nameValidation');
+
+            nameInput.addEventListener('blur', function () {
+                nameValidation.innerHTML = '';
+                if (nameInput.value == '' || nameInput.value == null) {
+                    nameValidation.innerHTML = '(*) Name Required..!!';
+                }
+                else {
+                    if (!nameInput.value.match(fullNameRegEx)) {
+                        nameValidation.innerHTML = '(*) Invalid Name..!!';
+                    }
+                }
+            });
+
+            nameInput.addEventListener('keypress', function (e) {
+                nameValidation.innerHTML = '';
+                var flag = ((e.which >= 65 && e.which <= 90) || (e.which >= 97 && e.which <= 122));
+                if (flag == false) {
+                    nameValidation.innerHTML = '(*) Invalid Name..!!';
+                }
+                return flag;
+            });
+
+            var contactInput = document.getElementById('contact');
+            var contactValidation = document.getElementById('contactValidation');
+
+            contactInput.addEventListener('blur', function () {
+                contactValidation.innerHTML = '';
+                if (contactInput.value == '' || contactInput.value == null) {
+                    contactValidation.innerHTML = '(*) Contact Number Required..!!';
+                }
+                else {
+                    if (!contactInput.value.match(conNoRegEx)) {
+                        contactValidation.innerHTML = '(*) Invalid Contact Number..!!';
+                    }
+                }
+            });
+
+            contactInput.addEventListener('keypress', function (e) {
+                contactValidation.innerHTML = '';
+                var flag = ((e.which >= 48 && e.which <= 57));
+                if (flag == false) {
+                    contactValidation.innerHTML = '(*) Invalid Contact Number..!!';
+                }
+                return flag;
+            });
+
+            var emailInput = document.getElementById('email');
+            var emailValidation = document.getElementById('emailValidation');
+
+            emailInput.addEventListener('blur', function () {
+                emailValidation.innerHTML = '';
+                if (emailInput.value == '' || emailInput.value == null) {
+                    emailValidation.innerHTML = '(*) Email Required..!!';
+                }
+                else {
+                    if (!emailInput.value.match(emailIdRegEx)) {
+                        emailValidation.innerHTML = '(*) Invalid Email..!!';
+                    }
+                }
+            });
+
+            var msgInput = document.getElementById('msg');
+            var msgValidation = document.getElementById('msgValidation');
+
+            msgInput.addEventListener('blur', function () {
+                msgValidation.innerHTML = '';
+                if (msgInput.value == '' || msgInput.value == null) {
+                    msgValidation.innerHTML = '(*) Message Required..!!';
+                }
+                else {
+                    if (msgInput.value.length > 300) {
+                        msgValidation.innerHTML = '(*) Invalid Message..!!';
+                    }
+                }
+            });
+
+            var btnSubmit = document.getElementById('btnSubmit');
+
+            btnSubmit.addEventListener('click', function () {
+                nameValidation.innerHTML = '';
+                if (nameInput.value == '' || nameInput.value == null) {
+                    nameValidation.innerHTML = '(*) Name Required..!!';
+                    nameFlag = false;
+                }
+                else {
+                    if (!nameInput.value.match(fullNameRegEx)) {
+                        nameValidation.innerHTML = '(*) Invalid Name..!!';
+                        nameFlag = false;
+                    }
+                    else {
+                        nameFlag = true;
+                    }
+                }
+
+                contactValidation.innerHTML = '';
+                if (contactInput.value == '' || contactInput.value == null) {
+                    contactValidation.innerHTML = '(*) Contact Number Required..!!';
+                    contactFlag = false;
+                }
+                else {
+                    if (!contactInput.value.match(conNoRegEx)) {
+                        contactValidation.innerHTML = '(*) Invalid Contact Number..!!';
+                        contactFlag = false;
+                    }
+                    else {
+                        contactFlag = true;
+                    }
+                }
+
+                emailValidation.innerHTML = '';
+                if (emailInput.value == '' || emailInput.value == null) {
+                    emailValidation.innerHTML = '(*) Email Required..!!';
+                    emailFlag = false;
+                }
+                else {
+                    if (!emailInput.value.match(emailIdRegEx)) {
+                        emailValidation.innerHTML = '(*) Invalid Email..!!';
+                        emailFlag = false;
+                    }
+                    else {
+                        emailFlag = true;
+                    }
+                }
+
+                msgValidation.innerHTML = '';
+                if (msgInput.value == '' || msgInput.value == null) {
+                    msgValidation.innerHTML = '(*) Message Required..!!';
+                    msgFlag = false;
+                }
+                else {
+                    if (msgInput.value.length > 300) {
+                        msgValidation.innerHTML = '(*) Invalid Message..!!';
+                        msgFlag = false;
+                    }
+                    else {
+                        msgFlag = true;
+                    }
+                }
+
+                if (nameFlag == true && contactFlag == true && emailFlag == true && msgFlag == true) {
+                    nameInput.value = '';
+                    contactInput.value = '';
+                    emailInput.value = '';
+                    msgInput.value = '';
+                    alert('Form submitted successfully...');
+                }
+                else {
+                    alert('Invalid input...');
+                }
+            });
+
+        });
+    </script>
+</head>
+
+<body>
+    <input type="text" id="name" autofocus placeholder="Enter Name Here" maxlength="40"><br>
+    <small id="nameValidation"></small>
+    <hr>
+    <input type="text" id="contact" autofocus placeholder="Enter Contact Number Here" maxlength="10"><br>
+    <small id="contactValidation"></small>
+    <hr>
+    <input type="text" id="email" autofocus placeholder="Enter Email Here" maxlength="50"><br>
+    <small id="emailValidation"></small>
+    <hr>
+    <textarea rows="5" id="msg" autofocus placeholder="Enter Message Here" maxlength="300"></textarea><br>
+    <small id="msgValidation"></small>
+    <hr>
+    <button id="btnSubmit">Submit</button>
+</body>
+
+</html>
